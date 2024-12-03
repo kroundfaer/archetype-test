@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Тест на Архетипы</title>
+    <style>
+        body, html {
+    user-select: none; /* Отключает выделение текста */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.questions, .results {
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+button {
+    min-height: 48px;
+    min-width: 48px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #28a745;
+}
+
+#startButton, #nextButton, #refreshButton {
+    margin: 0 auto;
+    display: block;
+}
+
+.hyperlink-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #0056b3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hyperlink-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.results ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+}
+
+.progress-bar-segment {
+    flex-grow: 1;
+    height: 20px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.progress-bar-segment:last-child {
+    border-right: none;
+}
+
+.progress-bar-segment.answered {
+    background-color: #28a745;
+    transition: background-color 0.3s ease;
+}
+
+.progress-bar-segment.current {
+    background-color: #007BFF;
+}
+
+.radio-label {
+    display: block;
+    font-size: 1.2em;
+    padding: 10px;
+    background: #007BFF;
+    border-right: 1px solid #e0e0e0;
+    color: white;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .radio-label {
+    background-color: #3ba03b;
+    transition: background-color 0.1s;
+    color: white;
+}
+
+.completed-message {
+    text-align: center;
+    margin: 20px auto 0 auto;
+    font-size: 1.5em;
+    color: #28a745;
+    padding: 20px;
+    width: 100%;
+}
+
+.total-questions {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#questionContainer {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#archetypeTestContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#archetypeTestContainer h2 {
+    margin-bottom: 20px;
+}
+
+#archetypeTestButton {
+    min-height: 48px;
+    min-width: 48px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Стили для гиперссылок */
+a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+a:hover {
+    background: #28a745;
+    
+}
+#userIdSection {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+
+    #userIdSection label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+        color: #333;
+    }
+
+    #userIdSection input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        user-select: text; /* Enable text selection for input */
+    }
+    
+    #userIdError {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+    }
+    #loadingScreen {
+    display: none; /* Сначала скрыто */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+    backdrop-filter: blur(10px); /* Добавляем размытие */
+}
+
+.clock {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #3498db;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* Адаптивный дизайн для мобильных устройств */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+}
+@media (max-width: 320px) {
+    .container {
+        width: 90%;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .hyperlink-button {
+        padding: 8px 16px;
+        margin: 15px 0;
+    }
+
+    .questions, .results {
+        padding: 15px;
+    }
+
+    .progress-bar-segment {
+        height: 15px;
+    }
+
+    .radio-label {
+        font-size: 1em;
+        padding: 8px;
+        margin: 8px 0;
+    }
+}
+
+        
+    </style>
+</head>
+<body>
+    <h1>Тест на Архетипы</h1>
+    <div class="container">
+        <div id="userIdSection">
+            <label for="telegramUserId">Введите Ваше имя пользователя в Telegram</label>
+            <input type="text" id="telegramUserId" name="telegramUserId">
+            <p id="userIdError" style="color: red; display: none;">Пожалуйста, введите ваш Telegram ID, чтобы начать тест. <br>Вы можете скопировать его из Telegram: <br><br>Настройки - Мой профиль</p>
+            <img id="errorImage" src="images/errorImage.jpg" style="display: none;" alt="Error Image">
+        </div>
+        <button id="startButton" type="button" onclick="startTest()" aria-label="Начать тест">Пройти тест</button>
+        <div class="questions" id="questionsSection" style="display:none;">
+            <h2 id="questionTitle">Вопрос 1</h2>
+            <p id="totalQuestions" class="total-questions">Всего вопросов: 86</p>
+            <div class="progress-bar" id="progressBar"></div>
+            <div id="questionContainer"></div>
+            <button id="refreshButton" type="button" onclick="refreshPage()" style="display:none;">Обновить страницу</button>
+            <p id="completedMessage" class="completed-message" style="display:none;">Тест завершен!</p>
+        </div>
+        <div class="results" id="resultsSection" style="display:none;">
+            <div id="loadingScreen" style="display: none;">
+                <div class="clock"></div>
+                <p>Пожалуйста подождите, это может занять несколько секунд...</p>
+            </div>            
+            <h2>Результаты</h2>
+            <ul id="resultsList"></ul>
+            <div class="hyperlink-container">
+                <a id="hyperlinkButton" href="#" class="hyperlink-button">Скачать гайд</a>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script>
+        
+        
+        function startTest() {
+            document.getElementById("questionsSection").style.display = "block";
+            document.getElementById("startButton").style.display = "none";
+            
+        }     
+        function saveAnswerAndNextQuestion() {
+            // логика для сохранения ответа и перехода к следующему вопросу
+        }
+        function refreshPage() {
+            location.reload();
+        }
+        function completeTest() {
+            document.getElementById("nextButton").style.display = "none";
+            document.getElementById("refreshButton").style.display = "block";
+            document.getElementById("completedMessage").style.display = "block";
+        }
+    </script>
+</body>
+</html>
+    <script>
+        const archetypes = {
+            'Невинный': 0,
+            'Искатель': 0,
+            'Мудрец': 0,
+            'Герой': 0,
+            'Бунтарь': 0,
+            'Маг': 0,
+            'Правитель': 0,
+            'Творец': 0,
+            'Хранитель': 0,
+            'Эстет': 0,
+            'Славный малый': 0,
+            'Шут': 0
+        };
+        const questions = [
+        { question: 'Я стараюсь избегать конфликтов', archetype: 'Невинный', id: 'question1' },
+{ question: 'Я рассчитываю, что близкие позаботятся обо мне', archetype: 'Невинный', id: 'question2' },
+{ question: 'Лучше промолчу и «проглочу обиду» чем буду конфликтовать с человеком и выяснять отношения', archetype: 'Невинный', id: 'question3' },
+{ question: 'Мне хотелось бы прожить легкую беззаботную жизнь. Пускай без особых достижений, но и без преодоления себя, вызовов и бесконечной гонки', archetype: 'Невинный', id: 'question4' },
+{ question: 'Верю, что люди в действительности не хотят причинять боль друг другу', archetype: 'Невинный', id: 'question5' },
+{ question: 'Всегда советуюсь перед принятием решений', archetype: 'Невинный', id: 'question6' },    
+{ question: 'Верю что большинство людей добрые и заслуживают доверия', archetype: 'Невинный', id: 'question7' },
+{ question: 'Мне очень важно узнать себя и найти свое место в мире', archetype: 'Искатель', id: 'question8' },
+{ question: 'Для того чтобы чувствовать себя ЖИВОЙ мне нужна независимость и ощущение «ветра в волосах»', archetype: 'Искатель', id: 'question9' },
+{ question: 'Время от времени я чувствую непонятное беспокойство, тоску и Зов', archetype: 'Искатель', id: 'question10' },
+{ question: 'Порой возникает  желание все бросить и «уйти в закат»', archetype: 'Искатель', id: 'question11' },
+{ question: 'Мне очень важно сохранять свою независимость и личную свободу', archetype: 'Искатель', id: 'question12' },
+{ question: 'Я всегда в поиске лучшего для себя, новых возможностей', archetype: 'Искатель', id: 'question13' },
+{ question: 'Поиск чего-либо для меня так же важен, как и факт нахождения этого', archetype: 'Искатель', id: 'question14' },
+{ question: 'Я стремлюсь к накоплению знаний и обретению мудрости', archetype: 'Мудрец', id: 'question15' },
+{ question: 'Могу долго и досконально изучать какой-то вопрос или тему, но так и не перейти к действиям', archetype: 'Мудрец', id: 'question16' },
+{ question: 'Мне важно докопаться до истины, понять и разложить все по полочкам', archetype: 'Мудрец', id: 'question17' },
+{ question: 'Я верю, что есть много верных способов смотреть на одно и то же', archetype: 'Мудрец', id: 'question18' },
+{ question: 'Готова признать свою неправоту, если понимаю что ошиблась и выдала неверную информацию', archetype: 'Мудрец', id: 'question19' },
+{ question: 'Стараюсь найти истину за иллюзиями', archetype: 'Мудрец', id: 'question20' },
+{ question: 'Получаю огромное удовольствие от исследований и поиска истины', archetype: 'Мудрец', id: 'question21' },    
+{ question: 'Мне важно побеждать, доказывая себе и окружающим что я лучшая', archetype: 'Герой', id: 'question22' },
+{ question: 'Мне важно побеждать, доказывая себе и окружающим что я лучшая', archetype: 'Герой', id: 'question23' },
+{ question: 'Мне тяжело признавать свою слабость и просить о помощи', archetype: 'Герой', id: 'question24' },
+{ question: 'Я боюсь попасть в зависимое положение', archetype: 'Герой', id: 'question25' },
+{ question: 'Меня мотивирует и заводит конкуренция', archetype: 'Герой', id: 'question26' },
+{ question: 'Я уверенно противостою обидчикам и отстаиваю свои границы и права', archetype: 'Герой', id: 'question27' },
+{ question: 'В моей жизни довольно часто случаются конфликты с окружающими', archetype: 'Герой', id: 'question28' },
+{ question: 'Я готова бросить вызов ценностям и устоям общества', archetype: 'Бунтарь', id: 'question29' },
+{ question: 'Я не позволяю другим вмешиваться в мою жизнь и указывать как мне жить', archetype: 'Бунтарь', id: 'question30' },
+{ question: 'Мне часто хочется что-то сломать', archetype: 'Бунтарь', id: 'question31' },
+{ question: 'Меня бесит необходимость подчиняться общим правилам', archetype: 'Бунтарь', id: 'question32' },
+{ question: 'Я готова отстаивать свое мнение, даже рискуя получить реальные негативные последствия - Например, увольнение с работы', archetype: 'Бунтарь', id: 'question33' },
+{ question: 'Мне близка мысль «правила существуют чтобы их нарушать!»', archetype: 'Бунтарь', id: 'question34' },
+{ question: 'Меня угнетает мысль быть «как все», «жить нормальной жизнью»', archetype: 'Бунтарь', id: 'question35' },
+{ question: 'Меня влекут тайны и глубины человеческого сознания', archetype: 'Маг', id: 'question36' },
+{ question: 'Меня всегда интересовала тема влияния на людей', archetype: 'Маг', id: 'question37' },    
+{ question: 'Я хотела бы обладать настоящей Харизмой, которая пленяла бы людей', archetype: 'Маг', id: 'question38' },
+{ question: 'Верю что только изменив свое мышление и установки, можно изменить свою жизнь', archetype: 'Маг', id: 'question39' },
+{ question: 'Для меня очень важна духовность', archetype: 'Маг', id: 'question40' },
+{ question: 'Окружающие часто говорят что я изменила их жизни', archetype: 'Маг', id: 'question41' },
+{ question: 'Верю что все в мире взаимосвязано', archetype: 'Маг', id: 'question42' },
+{ question: 'Мне важно все держать под контролем', archetype: 'Правитель', id: 'question43' },
+{ question: 'Я предпочитаю стоять во главе', archetype: 'Правитель', id: 'question44' },
+{ question: 'Только я сама в ответе за то что происходит в моей жизни', archetype: 'Правитель', id: 'question45' },
+{ question: '«Хочешь сделать хорошо – сделай сама»', archetype: 'Правитель', id: 'question46' },
+{ question: 'Не люблю когда что-то идет не по плану', archetype: 'Правитель', id: 'question47' },
+{ question: 'Ко мне часто обращаются за руководством и указаниями', archetype: 'Правитель', id: 'question48' },
+{ question: 'Я часто беру на себя лидерство в критических\кризисных ситуациях', archetype: 'Правитель', id: 'question49' },
+{ question: 'Ко мне легко приходит вдохновение, порой меня просто переполняют различные образы и идеи', archetype: 'Творец', id: 'question50' },
+{ question: 'Я могу подолгу оттачивать свою работу, доводя ее до совершенства', archetype: 'Творец', id: 'question51' },
+{ question: 'Если у меня нет возможности создавать или придумывать что-то новое, я чувствую что словно задыхаюсь', archetype: 'Творец', id: 'question52' },    
+{ question: 'У меня есть собственные АВТОРСКИЕ материалы\разработки\идеи\эскизы (любой тематики)', archetype: 'Творец', id: 'question53' },
+{ question: 'Меня угнетает необходимость работать по чужому шаблону или алгоритму. Я всегда творчески адаптирую его под себя', archetype: 'Творец', id: 'question54' },
+{ question: 'Мне бы хотелось оставить в мире что-то ценное после себя', archetype: 'Творец', id: 'question55' },
+{ question: 'Я испытываю страх при мысли что мое творчество раскритикуют, назовут его банальным и посредственным', archetype: 'Творец', id: 'question56' },
+{ question: 'Доброта – самая большая ценность', archetype: 'Хранитель', id: 'question57' },
+{ question: 'Часто я ставлю потребности других выше своих собственных', archetype: 'Хранитель', id: 'question58' },
+{ question: 'Я часто бываю «жилеткой» для подруг', archetype: 'Хранитель', id: 'question59' },
+{ question: 'В моей жизни были ситуации когда близкие, друзья или коллеги «садились мне на шею», пользуясь моей добротой', archetype: 'Хранитель', id: 'question60' },
+{ question: 'Мне близко желание помочь, проявить щедрость и сочувствие', archetype: 'Хранитель', id: 'question61' },
+{ question: 'Я больше счастлива, когда отдаю, чем когда получаю', archetype: 'Хранитель', id: 'question62' },
+{ question: 'Нередко происходит так что я «растворяясь» в другом человеке, его интересах и проблемах', archetype: 'Хранитель', id: 'question63' },
+{ question: 'Для меня важна романтика', archetype: 'Эстет', id: 'question64' },
+{ question: 'Смысл жизни – в близких связях между людьми. В крепкой дружбе и настоящей любви. Мне кажется невозможно быть по-настоящему счастливой без отношений', archetype: 'Эстет', id: 'question65' },
+{ question: 'Я согласна с утверждением: «Лучше любить и потерять любовь, чем вовсе никогда не любить»', archetype: 'Эстет', id: 'question66' },
+{ question: 'Мне очень важна глубокая душевная близость и родство душ', archetype: 'Эстет', id: 'question67' },    
+{ question: 'Мне важно выглядеть и чувствовать себя привлекательной и желанной', archetype: 'Эстет', id: 'question68' },
+{ question: 'Я нахожу наполненность через отношения (дружбу и любовь), вне отношений я чувствую себя словно не до конца «живой» и «полноценной»', archetype: 'Эстет', id: 'question69' },
+{ question: 'Считаю, что в жизни главное – удовольствие. Душевное общение, приятные ароматы, вкусная еда, эстетичное пространство вокруг, красивые вещи и хороший секс – вот рецепт счастья', archetype: 'Эстет', id: 'question70' },
+{ question: 'Мне близка идея равноправия и равных возможностей для всех', archetype: 'Славный малый', id: 'question71' },
+{ question: 'Мне важно чувствовать себя частью чего-то большего, какой-то общности (гендер\национальность\религия\круг по интересам и тд)', archetype: 'Славный малый', id: 'question72' },
+{ question: 'Важна не победа, а участие', archetype: 'Славный малый', id: 'question73' },
+{ question: 'Очень не люблю ситуации, когда приходится идти против коллектива', archetype: 'Славный малый', id: 'question74' },
+{ question: 'Мне некомфортно если приходится слишком выделяться и отличаться от окружающих, привлекать к себе излишнее внимание', archetype: 'Славный малый', id: 'question75' },
+{ question: 'Мне очень важно получать одобрение от друзей и коллег и «быть своей»', archetype: 'Славный малый', id: 'question76' },
+{ question: 'В моей жизни бывало что я мирилась с не самым уважительным и хорошим отношением к себе, так как боялась быть изгнанной из какого-то сообщества и стать изгоем (в школе\коллективе\дружеской компании и тд)', archetype: 'Славный малый', id: 'question77' },
+{ question: 'Я часто и много шучу, в любой ситуации пытаюсь найти что-то смешное', archetype: 'Шут', id: 'question78' },
+{ question: 'Готова посмеяться над собой и своими неудачами', archetype: 'Шут', id: 'question79' },
+{ question: 'Мне нравится выводить людей на эмоции. Например, смешить их или провоцировать', archetype: 'Шут', id: 'question80' },
+{ question: 'Я совсем непротив понаблюдать с попкорном за чужой перепалкой и возможно даже подлить масла в огонь', archetype: 'Шут', id: 'question81' },
+{ question: 'Я смеюсь над абсурдностью жизни', archetype: 'Шут', id: 'question82' },
+{ question: 'Я люблю быть в центре внимания, готова добиваться его практически любыми способами', archetype: 'Шут', id: 'question83' },
+{ question: 'Часто ищу способы встряхнуться и развлечься', archetype: 'Шут', id: 'question84' },
+  
+
+    // Добавьте остальные вопросы с архетипами и уникальными id
+];
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+let currentQuestionIndex = 0;
+const shuffledQuestions = shuffle([...questions]);
+const answers = {};
+const reportData = [];
+let telegramUserId = '';
+
+function startTest() {
+    telegramUserId = document.getElementById('telegramUserId').value;
+    const userIdError = document.getElementById('userIdError');
+    const errorImage = document.getElementById('errorImage');
+
+    if (!telegramUserId || telegramUserId.charAt(0) !== '@') {
+        userIdError.style.display = 'block';
+        errorImage.style.display = 'block'; // Показываем картинку ошибки
+        document.getElementById('telegramUserId').value = ''; // Очистить поле ввода
+    } else {
+        userIdError.style.display = 'none';
+        errorImage.style.display = 'none'; // Скрываем картинку ошибки
+        document.getElementById('userIdSection').style.display = 'none';
+        document.getElementById('startButton').style.display = 'none';
+        document.getElementById('questionsSection').style.display = 'block';
+        document.getElementById('totalQuestions').textContent = `Всего вопросов: ${shuffledQuestions.length}`;
+        createProgressBar();
+        showNextQuestion();
+    }
+}
+
+function createProgressBar() {
+    const progressBar = document.getElementById('progressBar');
+    progressBar.innerHTML = '';
+    for (let i = 0; i < shuffledQuestions.length; i++) {
+        const segment = document.createElement('div');
+        segment.classList.add('progress-bar-segment');
+        segment.id = `segment-${i}`;
+        progressBar.appendChild(segment);
+    }
+}
+
+function saveAnswerAndNextQuestion() {
+    const selectedAnswer = document.querySelector('input[type="radio"]:checked');
+    if (selectedAnswer) {
+        const question = shuffledQuestions[currentQuestionIndex - 1];
+        answers[question.id] = parseInt(selectedAnswer.value, 10);
+        reportData.push({ 
+            archetype: question.archetype, 
+            question: question.question, 
+            answer: selectedAnswer.nextElementSibling.textContent, 
+            telegramUserId: telegramUserId // Добавляем telegramUserId
+        });
+
+        document.querySelector(`#segment-${currentQuestionIndex - 1}`).classList.remove('current');
+        document.querySelector(`#segment-${currentQuestionIndex - 1}`).classList.add('answered');
+    }
+    showNextQuestion();
+}
+
+
+function showNextQuestion() {
+    setTimeout(() => {
+        const questionContainer = document.getElementById('questionContainer');
+        const refreshButton = document.getElementById('refreshButton');
+        
+        if (currentQuestionIndex < shuffledQuestions.length) {
+            const question = shuffledQuestions[currentQuestionIndex];
+            document.getElementById('questionTitle').textContent = `Вопрос ${currentQuestionIndex + 1}: ${question.question}`;
+            
+            const answers = [
+                { id: `${question.id}-5`, text: 'Почти всегда описывает меня (да)', value: '5' },
+                { id: `${question.id}-4`, text: 'Обычно описывает меня (скорее да)', value: '4' },
+                { id: `${question.id}-3`, text: 'Иногда описывает меня (иногда)', value: '3' },
+                { id: `${question.id}-2`, text: 'Редко описывает меня (скорее нет)', value: '2' },
+                { id: `${question.id}-1`, text: 'Почти никогда не описывает меня (нет)', value: '1' },
+            ];
+            
+            answers.sort(() => Math.random() - 0.5);
+            
+            let answerHTML = '';
+            answers.forEach(answer => {
+                answerHTML += `
+                    <label>
+                        <input type="radio" id="${answer.id}" name="${question.id}" value="${answer.value}" onclick="saveAnswerAndNextQuestion()">
+                        <label class="radio-label" for="${answer.id}">${answer.text}</label><br>
+                    </label>
+                `;
+            });
+            
+            questionContainer.innerHTML = `
+                <form id="currentQuestionForm">
+                    ${answerHTML}
+                </form>
+            `;
+
+            document.querySelector(`#segment-${currentQuestionIndex}`).classList.add('current');
+            currentQuestionIndex++;
+        } else {
+            calculateResults();
+            questionContainer.innerHTML = 'Тест завершен!';
+            refreshButton.style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'block';
+
+            sendReportToTelegram(reportData); // Отправка отчета после завершения теста
+        }
+    }, 100); // Задержка в 100 миллисекунд (0.1 секунды)
+}
+
+function generateXML(reportData) {
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<report>\n';
+
+    reportData.forEach((item, index) => {
+        xml += `  <question>\n`;
+        xml += `    <number>${index + 1}</number>\n`;
+        xml += `    <archetype>${item.archetype}</archetype>\n`;
+        xml += `    <text>${item.question}</text>\n`;
+        xml += `    <answer>${item.answer}</answer>\n`;
+        xml += `  </question>\n`;
+    });
+
+    xml += '</report>';
+    return xml;
+}
+
+function generateTextReport(reportData) {
+    const username = telegramUserId; // Используем telegramUserId как имя пользователя
+
+    // Получаем текст resultsSection
+    const resultsSectionText = document.getElementById('resultsList').innerText;
+
+    // Формируем итоговый текст отчета
+    let reportText = `Результаты теста:\n${resultsSectionText}\n`;
+    reportText += `Имя пользователя: ${username}`; // Добавляем имя пользователя в отчет
+    
+    return reportText;
+}
+
+async function sendXMLToTelegram(chatId, xmlContent, telegramUserId) {
+    const token = '8050219964:AAF4TcgUQNIequ-TQgJ3hz61UJuan9tSF_k'; // Замените на токен вашего бота
+    const url = `https://api.telegram.org/bot${token}/sendDocument`;
+
+    const formData = new FormData();
+    const blob = new Blob([xmlContent], { type: 'application/xml' });
+    const fileName = `report(${telegramUserId}).xml`; // Формируем имя файла
+    formData.append('chat_id', chatId);
+    formData.append('document', blob, fileName);
+
+    const response = await fetch(url, {
+        method: 'POST',
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error('Ошибка при отправке XML файла в Telegram');
+    } else {
+        console.log('XML файл успешно отправлен в Telegram'); // Отладочное сообщение
+    }
+}
+
+async function sendTextToTelegram(chatId, message) {
+    const token = '8050219964:AAF4TcgUQNIequ-TQgJ3hz61UJuan9tSF_k'; // Замените на токен вашего бота
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error('Ошибка при отправке текстового сообщения в Telegram');
+    } else {
+        console.log('Текстовое сообщение успешно отправлено в Telegram');
+    }
+}
+
+async function sendReportToTelegram(reportData) {
+    const chatId = '-1002294227960'; // Замените на имя вашего канала
+    const xmlContent = generateXML(reportData);
+
+    const sendXmlPromise = sendXMLToTelegram(chatId, xmlContent, telegramUserId); // Отправляем XML файл
+    const message = generateTextReport(reportData);
+    const sendTextPromise = sendTextToTelegram(chatId, message); // Отправляем текстовое сообщение
+
+    try {
+        await Promise.all([sendXmlPromise, sendTextPromise]); // Ожидаем завершения обеих задач
+        console.log('Отчет успешно отправлен в формате XML и текста в Telegram');
+    } catch (error) {
+        console.error('Ошибка при отправке отчета в Telegram:', error);
+    } finally {
+        // Скрываем экран загрузки после завершения отправки
+        document.getElementById('loadingScreen').style.display = 'none';
+    }
+}
+
+async function calculateResults() {
+    // Show the loading screen
+    document.getElementById('loadingScreen').style.display = 'flex';
+    
+    // Calculate the results
+    for (let key in archetypes) {
+        archetypes[key] = 0;
+    }
+
+    for (let id in answers) {
+        const question = questions.find(q => q.id === id);
+        if (question) {
+            archetypes[question.archetype] += answers[id];
+        }
+    }
+
+    const sortedArchetypes = Object.entries(archetypes).sort((a, b) => b[1] - a[1]);
+    const resultsList = document.getElementById('resultsList');
+    resultsList.innerHTML = '';
+    sortedArchetypes.forEach(([archetype, score]) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${archetype}: ${score}`;
+        resultsList.appendChild(listItem);
+    });
+
+    const message = sortedArchetypes.map(([archetype, score]) => `${archetype}: ${score}`).join('\n');
+    await sendReportToTelegram(`Результаты теста:\n${message}`);
+
+    const hyperlinkButton = document.getElementById('hyperlinkButton');
+    hyperlinkButton.href = 'https://t.me/schepkina_svetlana';
+}
+
+function refreshPage() {
+    window.location.reload();
+}
+
+
+// Запрещаем копирование, вырезание, вставку и выделение текста
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.body.addEventListener('copy', (e) => {
+        if (e.target.id !== 'telegramUserId') {
+            e.preventDefault();
+        }
+    });
+
+    document.body.addEventListener('cut', (e) => {
+        if (e.target.id !== 'telegramUserId') {
+            e.preventDefault();
+        }
+    });
+
+    document.body.addEventListener('paste', (e) => {
+        if (e.target.id !== 'telegramUserId') {
+            e.preventDefault();
+        }
+    });
+
+    document.body.addEventListener('selectstart', (e) => {
+        if (e.target.id !== 'telegramUserId') {
+            e.preventDefault();
+        }
+    });
+
+    document.body.addEventListener('mousedown', (e) => {
+        if (e.target.id !== 'telegramUserId') {
+            e.preventDefault();
+        }
+    });
+    
+});
+
+
+
+</script>
+
+</body>
+</html>
+
