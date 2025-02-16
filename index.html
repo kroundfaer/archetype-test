@@ -580,9 +580,6 @@ function showNextQuestion() {
                 { id: `${question.id}-2`, text: 'Редко описывает меня (скорее нет)', value: '2' },
                 { id: `${question.id}-1`, text: 'Почти никогда не описывает меня (нет)', value: '1' },
             ];
-            
-            answers.sort(() => Math.random() - 0.5);
-            
             let answerHTML = '';
             answers.forEach(answer => {
                 answerHTML += `
